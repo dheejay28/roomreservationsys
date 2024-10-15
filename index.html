@@ -12,11 +12,13 @@
         <button onclick="window.location.href='reserve.html'">Reserve Room</button>
         <button onclick="window.location.href='reservations.html'">View Reservations</button>
         <button onclick="window.location.href='return.html'">Return Room</button>
-
-        <!-- Only show the Add Room button if the user is an admin -->
+        
+        <!-- Add Room button will only be shown if admin is logged in -->
         <button id="add-room-button" style="display:none;" onclick="window.location.href='add-room.html'">Add Room</button>
         
-        <button onclick="window.location.href='login.html'">Log In</button>
+        <!-- Log In and Log Out buttons -->
+        <button id="login-button" style="display:block;" onclick="window.location.href='login.html'">Log In</button>
+        <button id="logout-button" style="display:none;" onclick="logout()">Log Out</button>
     </div>
 
     <script>
@@ -24,6 +26,18 @@
         const isAdmin = localStorage.getItem('isAdmin') === 'true';
         if (isAdmin) {
             document.getElementById('add-room-button').style.display = 'block'; // Show the Add Room button
+            document.getElementById('login-button').style.display = 'none'; // Hide Log In button
+            document.getElementById('logout-button').style.display = 'block'; // Show Log Out button
+        }
+
+        function logout() {
+            localStorage.removeItem('isAdmin'); // Remove admin status from local storage
+            document.getElementById('add-room-button').style.display = 'none'; // Hide the Add Room button
+            document.getElementById('logout-button').style.display = 'none'; // Hide the Log Out button
+            document.getElementById('login-button').style.display = 'block'; // Show Log In button
+            alert('You have been logged out.'); // Optional: Show a logout message
+            // Optionally, redirect to the homepage if you want to enforce navigation
+            // window.location.href = 'index.html';
         }
     </script>
 </body>

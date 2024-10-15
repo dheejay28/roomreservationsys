@@ -53,6 +53,24 @@ function updateReservationList() {
     reservations.forEach(res => {
         const listItem = document.createElement('li');
         listItem.textContent = `Reservation Code: ${res.code}, Name: ${res.name}, Room Type: ${res.roomType}, Check-in: ${res.checkIn}, Check-out: ${res.checkOut}`;
+
+        // Create a "Return Room" button
+        const returnButton = document.createElement('button');
+        returnButton.textContent = 'Return Room';
+        returnButton.addEventListener('click', function() {
+            returnRoom(res.code); // Call the returnRoom function with the reservation code
+        });
+
+        listItem.appendChild(returnButton);
         reservationList.appendChild(listItem);
     });
+}
+
+// Function to handle room return (cancellation)
+function returnRoom(code) {
+    // Filter out the reservation with the matching code
+    reservations = reservations.filter(res => res.code !== code);
+
+    // Update the reservation list display
+    updateReservationList();
 }

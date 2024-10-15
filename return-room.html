@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return Room</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Return Room</h1>
+        <input type="text" id="reservation-code" placeholder="Reservation Code" required>
+        <button onclick="returnRoom()">Return Room</button>
+        <p id="return-message" class="hidden"></p>
+        <button onclick="location.href='index.html'">Back</button>
+    </div>
+
+    <script>
+        function returnRoom() {
+            const reservationCode = document.getElementById('reservation-code').value;
+            const reservedRooms = JSON.parse(localStorage.getItem('reservedRooms')) || [];
+            const roomIndex = reservedRooms.findIndex(room => room.code == reservationCode);
+
+            if (roomIndex > -1) {
+                reservedRooms.splice(roomIndex, 1); // Remove the room from the reserved list
+                localStorage.setItem('reservedRooms', JSON.stringify(reservedRooms));
+                document.getElementById('return-message').textContent = 'Room returned successfully!';
+            } else {
+                document.getElementById('return-message').textContent = 'Invalid reservation code.';
+            }
+            document.getElementById('return-message').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

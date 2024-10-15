@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserved Rooms</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Reserved Rooms</h1>
+        <ul id="reservation-list"></ul>
+        <button onclick="window.location.href='index.html'">Back to Home</button>
+    </div>
+
+    <script>
+        // Retrieve reservations from localStorage and display them
+        function displayReservations() {
+            const reservationList = document.getElementById('reservation-list');
+            reservationList.innerHTML = ''; // Clear existing list
+
+            const reservations = JSON.parse(localStorage.getItem('reservations')) || [];
+
+            // Populate the reservation list
+            reservations.forEach(res => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Reservation Code: ${res.code}, Name: ${res.name}, Room Type: ${res.roomType}, Check-in: ${res.checkIn}, Check-out: ${res.checkOut}`;
+                reservationList.appendChild(listItem);
+            });
+        }
+
+        // Call the display function on page load
+        window.onload = displayReservations;
+    </script>
+</body>
+</html>

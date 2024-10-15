@@ -1,6 +1,14 @@
 let rooms = JSON.parse(localStorage.getItem('rooms')) || []; // Load rooms from local storage
 let reservations = JSON.parse(localStorage.getItem('reservations')) || []; // Load reservations from local storage
 
+// Show or hide the add room button based on admin status
+function checkAdminStatus() {
+    const isAdmin = localStorage.getItem('isAdmin');
+    if (isAdmin === 'true') {
+        document.getElementById('add-room-button').classList.remove('hidden');
+    }
+}
+
 // Show or hide the add room form
 function toggleAddRoomForm() {
     const form = document.getElementById('add-room-form');
@@ -112,4 +120,5 @@ document.getElementById('reservation-form').addEventListener('submit', function(
 // Populate room select dropdown on page load
 window.onload = function() {
     populateRoomSelect(); // Populate available rooms
+    checkAdminStatus(); // Check if the user is an admin
 };

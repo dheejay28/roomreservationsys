@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Room</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Add Room</h1>
+        <form id="add-room-form">
+            <label for="room-type">Room Type:</label>
+            <input type="text" id="room-type" required>
+
+            <button type="submit">Add Room</button>
+        </form>
+        <p id="add-room-message" class="hidden"></p>
+    </div>
+
+    <script>
+        document.getElementById('add-room-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const roomType = document.getElementById('room-type').value;
+
+            // Store the room type in local storage for demonstration
+            let rooms = JSON.parse(localStorage.getItem('rooms')) || [];
+            rooms.push(roomType);
+            localStorage.setItem('rooms', JSON.stringify(rooms));
+            document.getElementById('add-room-message').textContent = 'Room added successfully!';
+            document.getElementById('add-room-message').classList.remove('hidden');
+            document.getElementById('add-room-form').reset();
+        });
+    </script>
+</body>
+</html>

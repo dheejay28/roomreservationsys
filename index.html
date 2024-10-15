@@ -7,42 +7,20 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
+    <div class="container">
         <h1>Room Reservation System</h1>
-        <button id="login-button" onclick="location.href='login.html'">Log In</button> <!-- Log In Button -->
-    </header>
-
-    <main>
-        <!-- Existing content like reservation forms and buttons -->
-        <button id="add-room" class="hidden" onclick="location.href='add-room.html'">Add Room</button>
-        <button id="reserve-room" onclick="reserveRoom()">Reserve Room</button>
-        <button id="view-reservations" onclick="viewReservations()">View Reservations</button>
-        <button id="return-room" onclick="returnRoom()">Return Room</button>
-    </main>
+        <button onclick="location.href='reserve.html'">Reserve Room</button>
+        <button onclick="location.href='return.html'">Return Room</button>
+        <button onclick="location.href='login.html'">Log In</button>
+        <button id="add-room-button" style="display:none;" onclick="location.href='add-room.html'">Add Room</button>
+        <button id="reservations-button" onclick="location.href='reservations.html'">View Reservations</button>
+    </div>
 
     <script>
-        // JavaScript code for functionality
-        function reserveRoom() {
-            // Your reservation logic here
+        // Check admin status
+        if (localStorage.getItem('isAdmin') === 'true') {
+            document.getElementById('add-room-button').style.display = 'inline-block';
         }
-
-        function viewReservations() {
-            // Your logic to view reservations here
-        }
-
-        function returnRoom() {
-            // Your logic to return a room here
-        }
-
-        // Show or hide Add Room button based on admin status
-        function checkAdminStatus() {
-            if (localStorage.getItem('isAdmin') === 'true') {
-                document.getElementById('add-room').classList.remove('hidden');
-            }
-        }
-
-        // Call function on page load
-        window.onload = checkAdminStatus;
     </script>
 </body>
 </html>

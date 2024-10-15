@@ -7,7 +7,9 @@ document.getElementById('reservation-form').addEventListener('submit', function(
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const checkIn = document.getElementById('check-in').value;
+    const checkInTime = document.getElementById('check-in-time').value;
     const checkOut = document.getElementById('check-out').value;
+    const checkOutTime = document.getElementById('check-out-time').value;
     const roomType = document.getElementById('room-type').value;
 
     // Generate a unique reservation code (e.g., a random number)
@@ -18,8 +20,8 @@ document.getElementById('reservation-form').addEventListener('submit', function(
         code: reservationCode,
         name: name,
         email: email,
-        checkIn: checkIn,
-        checkOut: checkOut,
+        checkIn: `${checkIn} ${checkInTime}`,
+        checkOut: `${checkOut} ${checkOutTime}`,
         roomType: roomType
     };
 
@@ -31,7 +33,7 @@ document.getElementById('reservation-form').addEventListener('submit', function(
     const confirmationDetails = document.getElementById('confirmation-details');
     
     confirmationDetails.innerHTML = `Thank you, ${name}!<br>
-        Your reservation for a ${roomType} room from ${checkIn} to ${checkOut} has been confirmed.<br>
+        Your reservation for a ${roomType} room from ${checkIn} at ${checkInTime} to ${checkOut} at ${checkOutTime} has been confirmed.<br>
         Reservation Code: <strong>${reservationCode}</strong><br>
         A confirmation email has been sent to ${email}.`;
     
@@ -74,3 +76,9 @@ function returnRoom(code) {
     // Update the reservation list display
     updateReservationList();
 }
+
+// Toggle visibility of the reservation list
+document.getElementById('toggle-reservations').addEventListener('click', function() {
+    const reservationList = document.getElementById('reservation-list');
+    reservationList.classList.toggle('hidden'); // Toggle the hidden class
+});

@@ -6,7 +6,6 @@ document.getElementById('reservation-form').addEventListener('submit', function(
     // Get form values
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
-    const checkIn = document.getElementById('check-in').value;
     const checkInTime = document.getElementById('check-in-time').value;
     const checkOut = document.getElementById('check-out').value;
     const checkOutTime = document.getElementById('check-out-time').value;
@@ -15,13 +14,32 @@ document.getElementById('reservation-form').addEventListener('submit', function(
     // Generate a unique reservation code (e.g., a random number)
     const reservationCode = 'RES' + Math.floor(Math.random() * 10000);
 
+    // Create a date object for check-in and check-out
+    const checkInDateTime = new Date(`${checkOut} ${checkInTime}`);
+    const checkOutDateTime = new Date(`${checkOut} ${checkOutTime}`);
+
+    // Check for overlapping reservations
+    const isAvailable = reservations.every(res => {
+        const existingCheckInDateTime = new Date(res.checkIn);
+        const existingCheckOutDateTime = new Date(res.checkOut);
+        return (
+            checkInDateTime >= existingCheckOutDateTime || 
+            checkOutDateTime <= existingCheckInDateTime
+        );
+    });
+
+    if (!isAvailable) {
+        alert('The room is not available at this time. Please choose another time.');
+        return; // Stop the reservation process
+    }
+
     // Create a reservation object
     const reservation = {
         code: reservationCode,
         name: name,
         email: email,
-        checkIn: `${checkIn} ${checkInTime}`,
-        checkOut: `${checkOut} ${checkOutTime}`,
+        checkIn: `${checkOut} ${checkInTime}`, // Store combined check-in information
+        checkOut: `${checkOut} ${checkOutTime}`, // Store combined check-out information
         roomType: roomType
     };
 
@@ -36,7 +54,7 @@ document.getElementById('reservation-form').addEventListener('submit', function(
     const confirmationDetails = document.getElementById('confirmation-details');
     
     confirmationDetails.innerHTML = `Thank you, ${name}!<br>
-        Your reservation for a ${roomType} room from ${checkIn} at ${checkInTime} to ${checkOut} at ${checkOutTime} has been confirmed.<br>
+        Your reservation for a ${roomType} room from ${checkOut} at ${checkInTime} to ${checkOut} at ${checkOutTime} has been confirmed.<br>
         Reservation Code: <strong>${reservationCode}</strong><br>
         A confirmation email has been sent to ${email}.`;
     

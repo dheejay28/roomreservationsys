@@ -12,31 +12,22 @@
         <form id="return-form">
             <label for="reservation-code">Reservation Code:</label>
             <input type="text" id="reservation-code" required>
-
             <button type="submit">Return Room</button>
         </form>
         <p id="return-message" class="hidden"></p>
+        <button onclick="window.location.href='index.html'">Back to Home</button>
     </div>
 
     <script>
         document.getElementById('return-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission
-
-            const reservationCode = document.getElementById('reservation-code').value;
+            event.preventDefault();
+            const reservationCode = document.getElementById('reservation-code').value.trim();
             let reservations = JSON.parse(localStorage.getItem('reservations')) || [];
-            
-            const reservationIndex = reservations.findIndex(reservation => reservation.reservationCode === reservationCode);
-
-            if (reservationIndex > -1) {
-                reservations.splice(reservationIndex, 1); // Remove the reservation
-                localStorage.setItem('reservations', JSON.stringify(reservations));
-                document.getElementById('return-message').textContent = 'Room returned successfully!';
-                document.getElementById('return-message').classList.remove('hidden');
-                document.getElementById('return-form').reset();
-            } else {
-                document.getElementById('return-message').textContent = 'Invalid reservation code.';
-                document.getElementById('return-message').classList.remove('hidden');
-            }
+            reservations = reservations.filter(reservation => reservation.reservationCode !== reservationCode);
+            localStorage.setItem('reservations', JSON.stringify(reservations));
+            document.getElementById('return-message').textContent = 'Room returned successfully!';
+            document.getElementById('return-message').classList.remove('hidden');
+            document.getElementById('return-form').reset();
         });
     </script>
 </body>

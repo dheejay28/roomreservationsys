@@ -12,7 +12,19 @@
         <button onclick="window.location.href='reserve.html'">Reserve Room</button>
         <button onclick="window.location.href='reservations.html'">View Reservations</button>
         <button onclick="window.location.href='return.html'">Return Room</button>
+
+        <!-- Only show the Add Room button if the user is an admin -->
+        <button id="add-room-button" style="display:none;" onclick="window.location.href='add-room.html'">Add Room</button>
+        
         <button onclick="window.location.href='login.html'">Log In</button>
     </div>
+
+    <script>
+        // Check if the user is an admin
+        const isAdmin = localStorage.getItem('isAdmin') === 'true';
+        if (isAdmin) {
+            document.getElementById('add-room-button').style.display = 'block'; // Show the Add Room button
+        }
+    </script>
 </body>
 </html>

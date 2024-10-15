@@ -19,8 +19,14 @@
             <label for="check-in">Check-in Date:</label>
             <input type="date" id="check-in" required>
 
+            <label for="check-in-time">Check-in Time:</label>
+            <input type="time" id="check-in-time" required>
+
             <label for="check-out">Check-out Date:</label>
             <input type="date" id="check-out" required>
+
+            <label for="check-out-time">Check-out Time:</label>
+            <input type="time" id="check-out-time" required>
 
             <label for="room-type">Room Type:</label>
             <select id="room-type" required>
@@ -38,8 +44,8 @@
             <p id="confirmation-details"></p>
         </div>
 
-        <h2>All Reservations</h2>
-        <ul id="reservation-list"></ul>
+        <button id="toggle-reservations">Reservations</button>
+        <ul id="reservation-list" class="hidden"></ul>
     </div>
 
     <script src="script.js"></script>

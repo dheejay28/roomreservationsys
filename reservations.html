@@ -3,49 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Reservations</title>
+    <title>View Reserved Rooms</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Reserved Rooms</h1>
-        <ul id="reservations-list"></ul>
-        <button onclick="window.location.href='index.html'">Back to Home</button>
-    </div>
+    <h1>Reserved Rooms</h1>
+    <div id="reserved-rooms"></div>
+    <button onclick="location.href='index.html'">Back</button>
 
     <script>
-        // Function to display the reserved rooms
-        function displayReservations() {
-            const reservationsList = document.getElementById('reservations-list');
-            reservationsList.innerHTML = ''; // Clear previous list
+        function displayReservedRooms() {
+            const reservedRoomsContainer = document.getElementById('reserved-rooms');
+            reservedRoomsContainer.innerHTML = '';
 
-            const reservations = JSON.parse(localStorage.getItem('reservations')) || [];
-            reservations.forEach((reservation, index) => {
-                const listItem = document.createElement('li');
-                listItem.textContent = `Room ${reservation.roomNumber} | From: ${reservation.startTime} To: ${reservation.endTime} `;
+            const reservedRooms = JSON.parse(localStorage.getItem('reservedRooms')) || [];
 
-                // Return button for each reservation
-                const returnButton = document.createElement('button');
-                returnButton.textContent = 'Return Room';
-                returnButton.onclick = function() {
-                    returnRoom(index); // Pass index to the return function
-                };
-
-                listItem.appendChild(returnButton);
-                reservationsList.appendChild(listItem);
+            reservedRooms.forEach(room => {
+                const roomDiv = document.createElement('div');
+                roomDiv.className = 'reserved-room';
+                roomDiv.innerHTML = `
+                    <h3>Room Number: ${room.number}</h3>
+                    <p>Reserved From: ${room.startTime} To: ${room.endTime}</p>
+                `;
+                reservedRoomsContainer.appendChild(roomDiv);
             });
         }
 
-        // Function to return a room
-        function returnRoom(index) {
-            const reservations = JSON.parse(localStorage.getItem('reservations')) || [];
-            reservations.splice(index, 1); // Remove the room at the index
-            localStorage.setItem('reservations', JSON.stringify(reservations)); // Update local storage
-            displayReservations(); // Refresh the displayed list
-        }
-
-        // Load reservations on page load
-        displayReservations();
+        document.addEventListener('DOMContentLoaded', displayReservedRooms);
     </script>
 </body>
 </html>

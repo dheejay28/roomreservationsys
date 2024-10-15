@@ -1,63 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reserve Room</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Reserve Room</h1>
-        <form id="reservation-form">
-            <label for="room-type">Room Type:</label>
-            <input type="text" id="room-type" required>
+// Function to handle room reservation
+function reserveRoom() {
+    const roomNumber = document.getElementById('room-number').value;
+    const startTime = document.getElementById('start-time').value;
+    const endTime = document.getElementById('end-time').value;
 
-            <label for="start-time">Start Time:</label>
-            <input type="time" id="start-time" required>
+    // Check if the room is already reserved at the given time
+    const reservations = JSON.parse(localStorage.getItem('reservations')) || [];
+    const isRoomReserved = reservations.some(reservation => 
+        reservation.roomNumber === roomNumber &&
+        ((startTime >= reservation.startTime && startTime < reservation.endTime) || 
+        (endTime > reservation.startTime && endTime <= reservation.endTime))
+    );
 
-            <label for="end-time">End Time:</label>
-            <input type="time" id="end-time" required>
-
-            <button type="submit">Reserve Room</button>
-        </form>
-        <p id="reservation-message" class="hidden"></p>
-    </div>
-
-    <script>
-        document.getElementById('reservation-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission
-
-            const roomType = document.getElementById('room-type').value.trim();
-            const startTime = document.getElementById('start-time').value;
-            const endTime = document.getElementById('end-time').value;
-
-            // Check if start time and end time are valid
-            if (!startTime || !endTime || startTime >= endTime) {
-                document.getElementById('reservation-message').textContent = 'Please enter valid start and end times.';
-                document.getElementById('reservation-message').classList.remove('hidden');
-                return;
-            }
-
-            // Check for existing reservations
-            let reservations = JSON.parse(localStorage.getItem('reservations')) || [];
-            const isRoomReserved = reservations.some(reservation => 
-                reservation.roomType === roomType && 
-                ((startTime < reservation.endTime && endTime > reservation.startTime))
-            );
-
-            if (isRoomReserved) {
-                document.getElementById('reservation-message').textContent = 'Room is not available at that time.';
-                document.getElementById('reservation-message').classList.remove('hidden');
-            } else {
-                const reservationCode = Math.random().toString(36).substring(2, 8); // Generate a random reservation code
-                reservations.push({ roomType, startTime, endTime, reservationCode });
-                localStorage.setItem('reservations', JSON.stringify(reservations));
-                document.getElementById('reservation-message').textContent = `Reservation successful! Your reservation code is <strong>${reservationCode}</strong>.`;
-                document.getElementById('reservation-message').classList.remove('hidden');
-                document.getElementById('reservation-form').reset();
-            }
-        });
-    </script>
-</body>
-</html>
+    if (isRoomReserved) {
+        alert('The room is already reserved at that time.');
+    } else {
+        const reservation = {
+            roomNumber: roomNumber,
+            startTime: startTime,
+            endTime: endTime
+        };
+        reservations.push(reservation); // Add reservation to array
+        localStorage.setItem('reservations', JSON.stringify(reservations)); // Save to local storage
+        alert('Reservation successful!'); // Notify user
+        window.location.href = 'reservations.html'; // Redirect to reservations page
+    }
+}

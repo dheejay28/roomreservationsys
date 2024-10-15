@@ -19,6 +19,7 @@
         <p id="login-message" class="hidden"></p>
         
         <button id="add-room-button" style="display:none;" onclick="window.location.href='add-room.html'">Add Room</button>
+        <button id="logout-button" style="display:none;" onclick="logout()">Log Out</button>
         <button onclick="window.location.href='index.html'">Back to Home</button>
     </div>
 
@@ -32,6 +33,7 @@
             if (username === 'iamtheadmin' && password === 'Dj*0100010001001010') {
                 localStorage.setItem('isAdmin', 'true'); // Set admin status in local storage
                 document.getElementById('add-room-button').style.display = 'block'; // Show the Add Room button
+                document.getElementById('logout-button').style.display = 'block'; // Show the Log Out button
                 document.getElementById('login-message').textContent = 'Login successful! You can now add rooms.';
                 document.getElementById('login-message').classList.remove('hidden');
             } else {
@@ -39,6 +41,17 @@
                 document.getElementById('login-message').classList.remove('hidden');
             }
         });
+
+        function logout() {
+            localStorage.removeItem('isAdmin'); // Remove admin status from local storage
+            document.getElementById('add-room-button').style.display = 'none'; // Hide the Add Room button
+            document.getElementById('logout-button').style.display = 'none'; // Hide the Log Out button
+            document.getElementById('login-message').textContent = 'You have been logged out.';
+            document.getElementById('login-message').classList.remove('hidden');
+            setTimeout(() => {
+                window.location.href = 'index.html'; // Redirect to the home page after logout
+            }, 2000); // Redirect after 2 seconds
+        }
     </script>
 </body>
 </html>

@@ -17,4 +17,11 @@
 
     <script>
         function addRoom() {
-            const newRoomNumber = document.getElementById('new-room-number').value
+            const newRoomNumber = document.getElementById('new-room-number').value;
+            const message = `Room ${newRoomNumber} added successfully!`;
+            document.getElementById('add-room-message').textContent = message;
+            document.getElementById('add-room-message').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

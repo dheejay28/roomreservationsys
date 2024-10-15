@@ -28,16 +28,22 @@
         document.getElementById('reservation-form').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the default form submission
 
-            const roomType = document.getElementById('room-type').value;
+            const roomType = document.getElementById('room-type').value.trim();
             const startTime = document.getElementById('start-time').value;
             const endTime = document.getElementById('end-time').value;
+
+            // Check if start time and end time are valid
+            if (!startTime || !endTime || startTime >= endTime) {
+                document.getElementById('reservation-message').textContent = 'Please enter valid start and end times.';
+                document.getElementById('reservation-message').classList.remove('hidden');
+                return;
+            }
 
             // Check for existing reservations
             let reservations = JSON.parse(localStorage.getItem('reservations')) || [];
             const isRoomReserved = reservations.some(reservation => 
                 reservation.roomType === roomType && 
-                ((startTime >= reservation.startTime && startTime < reservation.endTime) ||
-                (endTime > reservation.startTime && endTime <= reservation.endTime))
+                ((startTime < reservation.endTime && endTime > reservation.startTime))
             );
 
             if (isRoomReserved) {
@@ -47,7 +53,7 @@
                 const reservationCode = Math.random().toString(36).substring(2, 8); // Generate a random reservation code
                 reservations.push({ roomType, startTime, endTime, reservationCode });
                 localStorage.setItem('reservations', JSON.stringify(reservations));
-                document.getElementById('reservation-message').textContent = `Room reserved successfully! Your reservation code is ${reservationCode}.`;
+                document.getElementById('reservation-message').textContent = `Reservation successful! Your reservation code is <strong>${reservationCode}</strong>.`;
                 document.getElementById('reservation-message').classList.remove('hidden');
                 document.getElementById('reservation-form').reset();
             }

@@ -21,10 +21,10 @@
 
             const reservations = JSON.parse(localStorage.getItem('reservations')) || [];
 
-            // Populate the reservation list
+            // Populate the reservation list without showing the reservation code
             reservations.forEach(res => {
                 const listItem = document.createElement('li');
-                listItem.textContent = `Reservation Code: ${res.code}, Name: ${res.name}, Room Type: ${res.roomType}, Check-in: ${res.checkIn}, Check-out: ${res.checkOut}`;
+                listItem.textContent = `Name: ${res.name}, Room Type: ${res.roomType}, Check-in: ${res.checkIn}, Check-out: ${res.checkOut}`;
                 reservationList.appendChild(listItem);
             });
         }

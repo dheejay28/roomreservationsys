@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservations</title>
+    <title>View Reservations</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -14,15 +14,38 @@
     </div>
 
     <script>
-        // Display all reservations
-        const reservations = JSON.parse(localStorage.getItem('reservations')) || [];
-        const reservationsList = document.getElementById('reservations-list');
+        // Function to display the reserved rooms
+        function displayReservations() {
+            const reservationsList = document.getElementById('reservations-list');
+            reservationsList.innerHTML = ''; // Clear previous list
 
-        reservations.forEach(reservation => {
-            const listItem = document.createElement('li');
-            listItem.textContent = `${reservation.roomType} - ${reservation.startTime} to ${reservation.endTime}`;
-            reservationsList.appendChild(listItem);
-        });
+            const reservations = JSON.parse(localStorage.getItem('reservations')) || [];
+            reservations.forEach((reservation, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Room ${reservation.roomNumber} | From: ${reservation.startTime} To: ${reservation.endTime} `;
+
+                // Return button for each reservation
+                const returnButton = document.createElement('button');
+                returnButton.textContent = 'Return Room';
+                returnButton.onclick = function() {
+                    returnRoom(index); // Pass index to the return function
+                };
+
+                listItem.appendChild(returnButton);
+                reservationsList.appendChild(listItem);
+            });
+        }
+
+        // Function to return a room
+        function returnRoom(index) {
+            const reservations = JSON.parse(localStorage.getItem('reservations')) || [];
+            reservations.splice(index, 1); // Remove the room at the index
+            localStorage.setItem('reservations', JSON.stringify(reservations)); // Update local storage
+            displayReservations(); // Refresh the displayed list
+        }
+
+        // Load reservations on page load
+        displayReservations();
     </script>
 </body>
 </html>

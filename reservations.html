@@ -3,37 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Reservations</title>
+    <title>Reservations</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>All Reserved Rooms</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Room Type</th>
-                    <th>Start Time</th>
-                    <th>End Time</th>
-                    <th>Reservation Code</th>
-                </tr>
-            </thead>
-            <tbody id="reservations-list"></tbody>
-        </table>
+        <h1>Reserved Rooms</h1>
+        <ul id="reservations-list"></ul>
+        <button onclick="window.location.href='index.html'">Back to Home</button>
     </div>
 
     <script>
+        // Display all reservations
         const reservations = JSON.parse(localStorage.getItem('reservations')) || [];
         const reservationsList = document.getElementById('reservations-list');
 
         reservations.forEach(reservation => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${reservation.roomType}</td>
-                <td>${reservation.startTime}</td>
-                <td>${reservation.endTime}</td>
-            `;
-            reservationsList.appendChild(row);
+            const listItem = document.createElement('li');
+            listItem.textContent = `${reservation.roomType} - ${reservation.startTime} to ${reservation.endTime}`;
+            reservationsList.appendChild(listItem);
         });
     </script>
 </body>

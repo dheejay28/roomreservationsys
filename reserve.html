@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserve Room</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Reserve Room</h1>
+        <form id="reservation-form">
+            <label for="room-type">Room Type:</label>
+            <input type="text" id="room-type" required>
+
+            <label for="start-time">Start Time:</label>
+            <input type="time" id="start-time" required>
+
+            <label for="end-time">End Time:</label>
+            <input type="time" id="end-time" required>
+
+            <button type="submit">Reserve Room</button>
+        </form>
+        <p id="reservation-message" class="hidden"></p>
+    </div>
+
+    <script>
+        document.getElementById('reservation-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const roomType = document.getElementById('room-type').value;
+            const startTime = document.getElementById('start-time').value;
+            const endTime = document.getElementById('end-time').value;
+
+            // Check for existing reservations
+            let reservations = JSON.parse(localStorage.getItem('reservations')) || [];
+            const isRoomReserved = reservations.some(reservation => 
+                reservation.roomType === roomType && 
+                ((startTime >= reservation.startTime && startTime < reservation.endTime) ||
+                (endTime > reservation.startTime && endTime <= reservation.endTime))
+            );
+
+            if (isRoomReserved) {
+                document.getElementById('reservation-message').textContent = 'Room is not available at that time.';
+                document.getElementById('reservation-message').classList.remove('hidden');
+            } else {
+                const reservationCode = Math.random().toString(36).substring(2, 8); // Generate a random reservation code
+                reservations.push({ roomType, startTime, endTime, reservationCode });
+                localStorage.setItem('reservations', JSON.stringify(reservations));
+                document.getElementById('reservation-message').textContent = `Room reserved successfully! Your reservation code is ${reservationCode}.`;
+                document.getElementById('reservation-message').classList.remove('hidden');
+                document.getElementById('reservation-form').reset();
+            }
+        });
+    </script>
+</body>
+</html>

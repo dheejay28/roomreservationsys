@@ -1,66 +1,52 @@
-/* styles.css */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4; /* Light gray background */
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Full viewport height */
+    background-color: #f4f4f4;
 }
 
 .container {
-    background-color: #fff; /* White background for the form */
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    max-width: 400px;
+    margin: 50px auto;
     padding: 20px;
-    width: 300px; /* Fixed width for the form */
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 h1 {
     text-align: center;
-    color: #333; /* Darker text for the header */
+    color: #333;
 }
 
-label {
-    margin-top: 10px;
-    display: block; /* Stack labels on top of inputs */
-    color: #555; /* Medium gray for labels */
-}
-
-input[type="text"],
-input[type="time"] {
-    width: 100%; /* Full width for inputs */
+input {
+    display: block;
+    margin: 10px auto;
     padding: 10px;
-    margin: 5px 0 15px; /* Margin for spacing */
-    border: 1px solid #ccc; /* Light border */
-    border-radius: 4px; /* Rounded corners for inputs */
+    width: 90%;
 }
 
 button {
-    width: 100%; /* Full width for the button */
-    padding: 10px;
-    background-color: #5cb85c; /* Green background for button */
+    padding: 10px 15px;
+    background-color: #28a745;
+    color: white;
     border: none;
-    border-radius: 4px; /* Rounded corners */
-    color: white; /* White text for button */
-    font-size: 16px;
-    cursor: pointer; /* Pointer cursor on hover */
+    cursor: pointer;
+    width: 100%;
+    margin: 5px 0;
 }
 
 button:hover {
-    background-color: #4cae4c; /* Darker green on hover */
+    background-color: #218838;
 }
 
-#reservation-message,
-#login-message,
-#add-room-message {
-    text-align: center;
-    margin-top: 10px; /* Space above message */
-    color: #d9534f; /* Red for error messages */
+.reserved-room {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    margin: 10px 0;
+    padding: 15px;
 }
 
 .hidden {
-    display: none; /* Hide messages by default */
+    display: none;
 }

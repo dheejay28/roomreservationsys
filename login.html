@@ -16,7 +16,7 @@
             <label for="admin-password">Password:</label>
             <input type="password" id="admin-password" required>
 
-            <button type="submit">Login</button>
+            <button type="submit">Login</button> <!-- The login button -->
         </form>
         <p id="login-message" class="hidden"></p>
     </div>
@@ -28,8 +28,8 @@
             const username = document.getElementById('admin-username').value;
             const password = document.getElementById('admin-password').value;
 
-            // Simple authentication check
-            if (username === 'iamtheadminbitch' && password === 'Dj*0100010001001010') {
+            // Check for your new credentials
+            if (username === 'iamtheadmin' && password === 'Dj*0100010001001010') {
                 localStorage.setItem('isAdmin', 'true'); // Set admin status in local storage
                 window.location.href = 'index.html'; // Redirect to the main page
             } else {

@@ -54,3 +54,22 @@ button:hover {
 #confirmation {
     margin-top: 20px;
 }
+
+#reservation-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#reservation-list li {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#reservation-list button {
+    margin-left: 10px;
+}

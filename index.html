@@ -7,25 +7,27 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Room Reservation System</h1>
-
-    <div id="user-options">
-        <button onclick="location.href='reserve.html'">Reserve Room</button>
-        <button onclick="location.href='view-reservations.html'" id="view-reservations-btn">View Reserved Rooms</button>
-        <button onclick="toggleAdminLogin()" id="admin-login-btn">Log In</button>
-    </div>
-
-    <div id="admin-options" class="hidden">
-        <button onclick="location.href='add-room.html'">Add Room</button>
-        <button onclick="logoutAdmin()" id="logout-btn">Log Out</button>
-    </div>
-
-    <div id="login-form" class="hidden">
-        <h2>Admin Login</h2>
-        <input type="text" id="admin-username" placeholder="Username" required>
-        <input type="password" id="admin-password" placeholder="Password" required>
-        <button onclick="login()">Login</button>
-        <p id="login-message" class="hidden"></p>
+    <div class="container">
+        <h1>Room Reservation System</h1>
+        <div id="user-options">
+            <button onclick="location.href='reserve.html'">Reserve Room</button>
+            <button onclick="location.href='return-room.html'">Return Room</button>
+            <button onclick="location.href='view-reservations.html'">View Reserved Rooms</button>
+            <button onclick="toggleAdminLogin()" id="admin-login-btn">Log In</button>
+        </div>
+        
+        <div id="admin-options" class="hidden">
+            <button onclick="location.href='add-room.html'">Add Room</button>
+            <button onclick="logoutAdmin()" id="logout-btn">Log Out</button>
+        </div>
+        
+        <div id="login-form" class="hidden">
+            <h2>Admin Login</h2>
+            <input type="text" id="admin-username" placeholder="Username" required>
+            <input type="password" id="admin-password" placeholder="Password" required>
+            <button onclick="login()">Login</button>
+            <p id="login-message" class="hidden"></p>
+        </div>
     </div>
 
     <script>
@@ -55,17 +57,16 @@
 
         function toggleAdminOptions(show) {
             const adminOptions = document.getElementById('admin-options');
-            const viewReservationsBtn = document.getElementById('view-reservations-btn');
+            const adminLoginBtn = document.getElementById('admin-login-btn');
             if (show) {
                 adminOptions.classList.remove('hidden');
-                viewReservationsBtn.classList.add('hidden');
+                adminLoginBtn.classList.add('hidden');
             } else {
                 adminOptions.classList.add('hidden');
-                viewReservationsBtn.classList.remove('hidden');
+                adminLoginBtn.classList.remove('hidden');
             }
         }
 
-        // Initialize admin options based on login status
         document.addEventListener('DOMContentLoaded', function () {
             const isAdmin = localStorage.getItem('isAdmin') === 'true';
             toggleAdminOptions(isAdmin);

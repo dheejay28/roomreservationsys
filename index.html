@@ -9,6 +9,15 @@
 <body>
     <div class="container">
         <h1>Room Reservation System</h1>
+
+        <button id="add-room-button" onclick="toggleAddRoomForm()">Add Room</button>
+        <form id="add-room-form" class="hidden">
+            <label for="room-type">Room Type:</label>
+            <input type="text" id="room-type-input" required>
+
+            <button type="submit">Add Room</button>
+        </form>
+
         <form id="reservation-form">
             <label for="name">Name:</label>
             <input type="text" id="name" required>
@@ -25,13 +34,9 @@
             <label for="check-out-time">Check-out Time:</label>
             <input type="time" id="check-out-time" required>
 
-            <label for="room-type">Rooms:</label>
-            <select id="room-type" required>
+            <label for="room-select">Select Room:</label>
+            <select id="room-select" required>
                 <option value="">Select Room</option>
-                <option value="single">IT Room 101</option>
-                <option value="double">IT Room 102</option>
-                <option value="suite">IT Room 103</option>
-                <option value="suite">IT Room 104</option>
             </select>
 
             <button type="submit">Reserve Room</button>
